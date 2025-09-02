@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyConverterMaterialPage extends StatelessWidget {
@@ -5,44 +6,65 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    final border = OutlineInputBorder(
+      borderSide: const BorderSide(
+        width: 2.0,
+        style: BorderStyle.solid,
+      ),
+      borderRadius: BorderRadius.circular(5.0),
+    );
+
+    return Scaffold(
         backgroundColor: Colors.blueGrey,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 '0',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 45,
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(255, 255, 255, 255),
                 ),
               ),
-              TextField(
-                  style: TextStyle(
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: TextField(
+                  style: const TextStyle(
                     color: Colors.black,
                   ),
                   decoration: InputDecoration(
                     hintText: 'Please enter the amount in USD',
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                       color: Colors.black,
                     ),
-                    prefixIcon: Icon(Icons.monetization_on_outlined),
+                    prefixIcon: const Icon(Icons.monetization_on_outlined),
                     prefixIconColor: Colors.black,
                     filled: true,
                     fillColor: Colors.white,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 2,
-                        style: BorderStyle.solid,
-                      ),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(60),
-                      ),
-                    ),
-                  )),
+                    focusedBorder: border,
+                    enabledBorder: border,
+                  ),
+                  keyboardType: TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  if (kDebugMode) {
+                    print('button clicked');
+                  }
+                },
+                style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Colors.black),
+                  foregroundColor: MaterialStatePropertyAll(Colors.white),
+                  fixedSize: MaterialStatePropertyAll(Size(200, 50)),
+                ),
+                child: const Text('Convert'),
+              ),
             ],
           ),
         ));
